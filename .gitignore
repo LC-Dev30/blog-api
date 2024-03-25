@@ -1,0 +1,8 @@
+#variables de entornos
+.env
+
+#modulos
+node_modules
+
+#archivos compilados
+build
