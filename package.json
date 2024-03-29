@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "tsc": "tsc",
-    "dev": "node build/app.js"
+    "dev": "node build/app.js",
+    "start": "node build/app.js"
   },
   "author": "Leo dev",
   "license": "ISC",

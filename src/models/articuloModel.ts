@@ -10,9 +10,7 @@ export const articleModel = db.define('articles',{
       },
     titulo:DataTypes.STRING,
     contenido:DataTypes.STRING,
-    likes:DataTypes.INTEGER,
     fechaCreacion:DataTypes.DATE,
-    autor:DataTypes.STRING,
     idcategoria:DataTypes.INTEGER,
     urlImagen:DataTypes.STRING
 })
