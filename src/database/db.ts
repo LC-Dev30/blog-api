@@ -3,11 +3,14 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const db = new Sequelize(
-    process.env.NAMEDB || '',
-    process.env.USERNAMEDB || '',
-    process.env.PASSWORDDB,
+    process.env.NAMEDB as string,
+    process.env.USERNAMEDB as string,
+    process.env.PASSWORDDB as string,
     {
-        dialect: 'mysql',
-        define: { timestamps: false }
+        host:'localhost',
+        dialect: 'postgres',
+        define: { 
+            timestamps: false,
+        }
     }
 )

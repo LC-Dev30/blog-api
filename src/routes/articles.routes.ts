@@ -1,12 +1,16 @@
 import {Router} from 'express'
-import {articlesAll,postArticle,categoriaArticulos,getArticulosSeach} from '../controllers/articles.controller.js'
+import {articlesAll,postArticle,categoriaArticulos,getArticulosSeach,articlesUnique} from '../controllers/articles.controller.js'
+import { validToken } from '../auth/authAdmin.js'
+import { articleSchema } from '../validation/validationModels.js'
 
 export const routesArticles = Router()
 
 routesArticles.get('/articles',articlesAll)
 
-routesArticles.post('/article',postArticle)
+routesArticles.get('/article',articlesUnique)
 
-routesArticles.get('/categorias/:id',categoriaArticulos)
+routesArticles.post('/article',articleSchema,validToken,postArticle)
 
-routesArticles.get('/search',getArticulosSeach)
+routesArticles.get('/category/:id',categoriaArticulos)
+
+routesArticles.get('/search',getArticulosSeach) 

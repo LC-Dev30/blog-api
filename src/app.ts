@@ -1,20 +1,39 @@
 import express from 'express'
-import {routesArticles} from './routes/articles.routes'
+import { routesArticles } from './routes/articles.routes'
+import adminRouter from './routes/admin.routes'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { db } from './database/db'
+import cookieParser from 'cookie-parser'
 
-dotenv.config()
-const app = express()
+async function runApp() {
+  try {
+    await db.authenticate()
+    console.log('conexion exitosa ala base de datos');
+    dotenv.config()
+    const app = express()
 
-app.use(cors({
-    origin:'http://localhost:3001'
-}))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(routesArticles)
+    app.use(cookieParser())
 
-const port = process.env.PORT
+    // Configuración CORS 
+    app.use(cors({
+      origin: 'http://localhost:3001',
+      credentials: true 
+    }));
 
-app.listen(port,() => {
-    console.log('server running on port 3000');
-})
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }));
+    app.use('/api/',routesArticles)
+    app.use(adminRouter)
+
+    const port = process.env.PORT
+    app.listen(port, () => {
+      console.log(`server running on port ${port}`);
+    })
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+runApp()

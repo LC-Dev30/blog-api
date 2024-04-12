@@ -8,12 +8,27 @@ export const articleModel = db.define('articles',{
         primaryKey: true,
         autoIncrement: true
       },
-    titulo:DataTypes.STRING,
-    contenido:DataTypes.STRING,
-    fechaCreacion:DataTypes.DATE,
-    idcategoria:DataTypes.INTEGER,
-    urlImagen:DataTypes.STRING
+    titulo:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    contenido:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    fechaCreacion:{
+      type:DataTypes.DATE,
+      allowNull:false
+    },
+    idCategoria:{
+      type:DataTypes.INTEGER,
+      allowNull:false
+    },
+    urlImagen:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
 })
 
 
-articleModel.belongsTo(categoriaArticulo,{foreignKey:'idcategoria',targetKey:'id'});
+articleModel.belongsTo(categoriaArticulo,{foreignKey:'idCategoria',targetKey:'id'});
