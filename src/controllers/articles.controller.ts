@@ -60,7 +60,7 @@ export async function getArticulosSeach(req: Request, res: Response) {
       const serviceArtSeach = await service_getArticulosSeach(palabraClave)
 
       if (!serviceArtSeach.success)
-        return res.status(serviceArtSeach.status).json({ messaje: `${serviceArtSeach.message} ${palabraClave}`, success: false })
+        return res.status(serviceArtSeach.status).json({ messaje: `${serviceArtSeach.message}`, success: false })
 
       return res.json({ result: serviceArtSeach, countResult: serviceArtSeach.data.length });
     }
@@ -72,7 +72,7 @@ export async function getArticulosSeach(req: Request, res: Response) {
 
 export async function articlesUnique(req: Request, res: Response) {
   try {
-    const artId = req.query.art as string
+    const artId = req.query.id as string
 
     const validParameter = IsNumber(artId)
 

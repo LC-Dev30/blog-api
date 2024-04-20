@@ -5,6 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { db } from './database/db'
 import cookieParser from 'cookie-parser'
+import swaggerConfig from './util/configSwagger'
 
 async function runApp() {
   try {
@@ -21,6 +22,7 @@ async function runApp() {
       credentials: true 
     }));
 
+    app.use(swaggerConfig)
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
     app.use('/api/',routesArticles)

@@ -12,7 +12,7 @@ export async function loginAdmin(req: Request, res: Response) {
       if (validAdmin.status != 200 && validAdmin.data == null && !validAdmin.success)
          return res.status(validAdmin.status).json({ message: validAdmin.message })
 
-      const token = await crearTokenAdmin(validAdmin.data.gmail, validAdmin.data.password) as string
+      const token = await crearTokenAdmin(validAdmin.data.id,validAdmin.data.rol) as string
 
       if (token.length === 0) {
          res.status(500).send('Ha ocurrido un error en autenticarse, vuelva a intentarlo')
@@ -20,8 +20,8 @@ export async function loginAdmin(req: Request, res: Response) {
       }
 
       res.cookie('token', token);
-      res.status(validAdmin.status).json({ validacion: true, nombreAdmin: validAdmin.data.nameAdmin })
+      res.status(validAdmin.status).json({ validacion: true, nombreAdmin: validAdmin.data.nameAdmin, token:token })
    } catch {
-      res.status(500).json('Ha ocurrido un problema en el servidor')
+      res.status(500).json('Ha ocurrido un problema en el servidor token')
    }
 }

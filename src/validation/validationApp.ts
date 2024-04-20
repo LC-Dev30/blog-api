@@ -1,6 +1,6 @@
 import { existAdmin } from "../services/adminServices";
 import { responseService } from '../types/dtoResponse'
-import { generarObjResponseAPI } from "../util/util";
+import { generarObjResponseAPI } from "../util/utilFunctions";
 
 export function IsNumber(str: string): boolean {
     return !isNaN(parseFloat(str)) && isFinite(parseFloat(str));

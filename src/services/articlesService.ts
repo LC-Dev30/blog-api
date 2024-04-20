@@ -1,7 +1,7 @@
 import { articleModel } from "../models/articuloModel.js";
 import { categoriaArticulo } from "../models/categoriaArticuloModel.js";
 import { article } from '../types/article.js'
-import { fechaActual, generarObjResponseAPI } from '../util/util.js'
+import { fechaActual, generarObjResponseAPI } from '../util/utilFunctions.js'
 import { Model, Op } from 'sequelize';
 
 
@@ -76,7 +76,7 @@ export async function service_getArticulosSeach(params: any) {
       })
 
       if (listaArticulosCoincidencias.length == 0)
-         return generarObjResponseAPI({ status: 404, success: false, message: 'No se encontraron resultados' })
+         return generarObjResponseAPI({ status: 404, success: false, message: `No se encontraron resultados para: ${params}`})
 
       return generarObjResponseAPI({ status: 200, data: listaArticulosCoincidencias, success: true })
    } catch (err: any) {

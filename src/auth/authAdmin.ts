@@ -7,7 +7,7 @@ dotenv.config()
 export function crearTokenAdmin(id: number, rol: string) {
     return new Promise((resolve, reject) => {
         try {
-            const secretKey = process.env.SECRETKEY != undefined ? process.env.SECRETKEY : ''
+            const secretKey = process.env.SECRETKEY as string
             const token = jwt.sign({ idAdmin: id, rolAdmin: rol }, secretKey, { expiresIn: '1d' })
             resolve(token)
         }
@@ -20,8 +20,8 @@ export function crearTokenAdmin(id: number, rol: string) {
 // valid token
 export function validToken(req: Request, res: Response, next: NextFunction) {
     try {
-        const token = req.cookies.token;
-
+        const token:string = req.cookies.token || req.headers['authorization']
+        
         if (!token) return res.status(403).send('Acceso denegado: Token no proporcionado');
 
         const decodedToken = jwt.verify(token, process.env.SECRETKEY as string);
@@ -35,8 +35,8 @@ export function validToken(req: Request, res: Response, next: NextFunction) {
         }
 
         next();
-    } catch {
+    } catch(err:any) {
         res.clearCookie('token');
-        res.status(403).send('Acceso denegado: Token inválido o caducado');
+        res.status(403).send(err.message);
     }
 }
